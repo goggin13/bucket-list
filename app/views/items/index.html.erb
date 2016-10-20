@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+<br>
+<%= link_to 'New Item', new_item_path %>
+
+<div id="item_list">
+  <h4>Items</h4>
+
+  <div class="lines">
+
+  <ul class="list">
+    <% 20.times do %>
+      <% @items.each do |item| %>
+        <li>
+          <%= item.title %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul></div>
+</div>

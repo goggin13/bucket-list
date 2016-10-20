@@ -97,3 +97,14 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+def http_basic_auth_login
+  request.env['HTTP_AUTHORIZATION'] = basic_auth_header
+end
+
+def basic_auth_header
+  user = 'username'
+  pw = 'password'
+
+  ActionController::HttpAuthentication::Basic.encode_credentials(user, pw)
+end
