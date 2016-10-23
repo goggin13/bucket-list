@@ -1,19 +1,48 @@
 <p id="notice"><%= notice %></p>
+
 <br>
-<%= link_to 'New Item', new_item_path %>
 
-<div id="item_list">
-  <h4>Items</h4>
-
-  <div class="lines">
+<div id="index_new_item">
+  <%= link_to 'New Item', new_item_path %>
+</div>
 
   <ul class="list">
-    <% 20.times do %>
-      <% @items.each do |item| %>
-        <li>
-          <%= item.title %>
-        </li>
-      <% end %>
+    <li class="first_item"></li>
+    <% @items.each do |item| %>
+      <li>
+
+        <div class="item-info-date">
+          <% if item.completed? %>
+            completed <%= item.created_at.strftime("%m/%_d/%y") %>
+          <% else %>
+            <%= item.created_at.strftime("%m/%_d/%y") %>
+          <% end %>
+        </div>
+
+        <div class="item-info-hidden item-edit-link">
+          <%= link_to "Edit", edit_item_path(item) %>
+        </div>
+
+        <% if item.completed? %>
+          <div class="strikethrough">
+        <% end %>
+
+        <%= item.title %>
+
+        <% if item.completed? %>
+          </div>
+        <% end %>
+
+        <p class="item-info-hidden item-description">
+          <%= item.description %>
+          <br/>
+          <% if item.completed? %>
+            <%= link_to "Un-Complete", uncomplete_item_path(item) %>
+          <% else %>
+            <%= link_to "Complete", complete_item_path(item) %>
+          <% end %>
+        </p>
+      </li>
     <% end %>
-  </ul></div>
+  </ul>
 </div>

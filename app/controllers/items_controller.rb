@@ -1,10 +1,14 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :complete, :uncomplete]
 
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    @items = Item
+      .order("completed ASC")
+      .order("completed_at DESC")
+      .order("created_at DESC")
+      .all
   end
 
   # GET /items/1
@@ -59,6 +63,19 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def complete
+    @item.completed = true
+    @item.completed_at ||= Time.now
+    @item.save!
+    redirect_to items_url, notice: 'Item is completed'
+  end
+
+  def uncomplete
+    @item.completed = false
+    @item.save!
+    redirect_to items_url, notice: 'Item is not completed'
   end
 
   private
