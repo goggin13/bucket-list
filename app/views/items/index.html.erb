@@ -27,10 +27,8 @@
           <div class="strikethrough">
         <% end %>
 
+        <%= image_tag(item.photo(:thumb)) %>
         <%= item.title %>
-        <% if item.photo.present? %>
-          <%= image_tag(item.photo(:thumb)) %>
-        <% end %>
 
         <% if item.completed? %>
           </div>

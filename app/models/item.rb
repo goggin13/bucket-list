@@ -6,6 +6,15 @@ class Item < ApplicationRecord
     thumb: '50x50>',
     square: '200x200#',
     medium: '300x300>'
+  },
+  :default_url => lambda { |attach|
+    file_name = if attach.instance.completed?
+      "checked"
+    else
+      "unchecked"
+    end
+
+    "http://mg-bucket-list.s3.amazonaws.com/default/items/:style/#{file_name}.png"
   }
 
   # Validate the attached image is image/jpg, image/png, etc
