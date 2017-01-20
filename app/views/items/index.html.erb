@@ -13,9 +13,9 @@
 
         <div class="item-info-date">
           <% if item.completed? %>
-            completed <%= item.created_at.strftime("%m/%_d/%y") %>
+            completed <%= item.created_at.strftime("%m/%d/%y") %>
           <% else %>
-            <%= item.created_at.strftime("%m/%_d/%y") %>
+            <%= item.created_at.strftime("%m/%d/%y") %>
           <% end %>
         </div>
 
@@ -28,6 +28,9 @@
         <% end %>
 
         <%= item.title %>
+        <% if item.photo.present? %>
+          <%= image_tag(item.photo(:thumb)) %>
+        <% end %>
 
         <% if item.completed? %>
           </div>
